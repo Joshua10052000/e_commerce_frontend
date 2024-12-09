@@ -1,18 +1,15 @@
-import auth from "@/server/actions/auth";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
+import { useSession } from "@/features/auth/hooks/use-session";
+
 const AuthLayout = () => {
   const navigate = useNavigate();
-  const { data } = useQuery({
-    queryKey: ["session"],
-    queryFn: auth.getSession,
-  });
+  const session = useSession();
 
   useEffect(() => {
-    if (data?.user) navigate("/");
-  }, [data?.user]);
+    if (session.data?.user) navigate("/");
+  }, [session.data?.user]);
 
   return (
     <article className="grid min-h-screen grid-cols-1 md:grid-cols-2">

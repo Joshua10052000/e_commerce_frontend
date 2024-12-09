@@ -1,5 +1,6 @@
 import * as React from "react";
-import { z } from "zod";
+
+import { cn } from "@/lib/utils";
 import {
   Form,
   FormControl,
@@ -7,12 +8,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+import { useSignupForm } from "@/features/auth/hooks/use-signup-form";
+import { SignupSchema } from "@/features/auth//types";
 
 interface SignupFormProps
   extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
@@ -20,21 +21,9 @@ interface SignupFormProps
   disabled?: boolean;
 }
 
-type SignupSchema = z.infer<typeof signupSchema>;
-
-const signupSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  password: z.string(),
-  confirmPassword: z.string(),
-});
-
 const SignupForm = React.forwardRef<HTMLFormElement, SignupFormProps>(
   ({ className, children, onSubmit, disabled, ...props }, ref) => {
-    const signupForm = useForm<SignupSchema>({
-      resolver: zodResolver(signupSchema),
-      defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
-    });
+    const signupForm = useSignupForm();
 
     return (
       <Form {...signupForm}>
@@ -110,5 +99,4 @@ const SignupForm = React.forwardRef<HTMLFormElement, SignupFormProps>(
   },
 );
 
-export type { SignupSchema };
 export { SignupForm };

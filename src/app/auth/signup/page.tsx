@@ -1,4 +1,5 @@
-import { SignupForm } from "@/components/auth/signup-form";
+import { Link } from "react-router";
+
 import {
   Card,
   CardContent,
@@ -7,12 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FormResponse } from "@/components/ui/form";
-import auth from "@/server/actions/auth";
-import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router";
+
+import { SignupForm } from "@/features/auth/components/signup-form";
+import { useSignup } from "@/features/auth/hooks/use-signup";
 
 const SignupPage = () => {
-  const signup = useMutation({ mutationFn: auth.signUp });
+  const signup = useSignup();
 
   return (
     <div className="grid min-h-screen place-items-center">

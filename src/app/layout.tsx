@@ -1,19 +1,16 @@
 import { Header } from "@/components/global/header";
-import auth from "@/server/actions/auth";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
+import { useSession } from "@/features/auth/hooks/use-session";
+
 const RootLayout = () => {
   const navigate = useNavigate();
-  const { data } = useQuery({
-    queryKey: ["session"],
-    queryFn: auth.getSession,
-  });
+  const session = useSession();
 
   useEffect(() => {
-    if (!data?.user) navigate("/auth/signin");
-  }, [data?.user]);
+    if (!session.data?.user) navigate("/auth/signin");
+  }, [session.data?.user]);
 
   return (
     <article className="bg-background font-sans antialiased">

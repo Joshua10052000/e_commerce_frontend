@@ -1,5 +1,5 @@
 import * as React from "react";
-import { z } from "zod";
+
 import {
   Form,
   FormControl,
@@ -7,12 +7,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { useForm } from "react-hook-form";
+} from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+import { useSigninForm } from "@/features/auth/hooks/use-signin-form";
+import { SigninSchema } from "@/features/auth/types";
 
 interface SigninFormProps
   extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
@@ -20,19 +21,9 @@ interface SigninFormProps
   disabled?: boolean;
 }
 
-type SigninSchema = z.infer<typeof signinSchema>;
-
-const signinSchema = z.object({ email: z.string(), password: z.string() });
-
 const SigninForm = React.forwardRef<HTMLFormElement, SigninFormProps>(
   ({ className, children, onSubmit, disabled, ...props }, ref) => {
-    const signinForm = useForm<SigninSchema>({
-      resolver: zodResolver(signinSchema),
-      defaultValues: {
-        email: "",
-        password: "",
-      },
-    });
+    const signinForm = useSigninForm();
 
     return (
       <Form {...signinForm}>
@@ -82,5 +73,4 @@ const SigninForm = React.forwardRef<HTMLFormElement, SigninFormProps>(
   },
 );
 
-export type { SigninSchema };
 export { SigninForm };
