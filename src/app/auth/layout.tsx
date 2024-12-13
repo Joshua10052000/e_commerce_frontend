@@ -8,8 +8,8 @@ const AuthLayout = () => {
   const session = useSession();
 
   useEffect(() => {
-    if (session.data?.user) navigate("/");
-  }, [session.data?.user]);
+    if (session.data && session.data.user) navigate("/");
+  }, [session.data]);
 
   return (
     <article className="grid min-h-screen grid-cols-1 md:grid-cols-2">

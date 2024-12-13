@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useIsTablet } from "@/hooks/use-tablet";
 import AutoPlay from "embla-carousel-autoplay";
+import { useCategories } from "@/features/categories/hooks/use-categories";
+import {
+  CategoryCard,
+  CategoryCardSkeleton,
+} from "@/features/categories/components/category-card";
+import { cn } from "@/lib/utils";
 
 interface Banner {
   name: string;
@@ -32,23 +35,27 @@ const banners: Banner[] = [
     name: "Sports",
     image: "/placeholder.svg",
   },
+  {
+    name: "Books",
+    image: "/placeholder.svg",
+  },
 ];
 
 const Homepage = () => {
-  const isTablet = useIsTablet();
+  const categories = useCategories();
 
   return (
-    <article className="container mx-auto space-y-6 pt-4">
+    <article className="container mx-auto space-y-6">
       <section>
         <Carousel
-          plugins={[
-            AutoPlay({ playOnInit: true, delay: 3000, stopOnMouseEnter: true }),
-          ]}
+          plugins={[AutoPlay({ playOnInit: true, delay: 3000 })]}
+          className="select-none"
+          opts={{ loop: true }}
         >
           <CarouselContent>
             {banners.map((banner) => (
               <CarouselItem key={banner.name}>
-                <div className="relative mx-auto aspect-video w-full border p-0 before:absolute before:inset-x-0 before:bottom-0 before:z-10 before:aspect-video before:w-full before:bg-gradient-to-t before:from-primary/75 before:to-transparent">
+                <Card className="relative mx-auto aspect-video w-full overflow-hidden border p-0 before:absolute before:inset-x-0 before:bottom-0 before:z-10 before:aspect-video before:w-full before:bg-gradient-to-t before:from-primary/75 before:to-transparent">
                   <img
                     src="/placeholder.svg"
                     className="h-full max-h-full w-full max-w-full object-cover"
@@ -69,25 +76,49 @@ const Homepage = () => {
                     </div>
                     <Button className="hidden md:inline-flex">Shop Now</Button>
                   </div>
-                </div>
+                </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
-          {!isTablet && (
-            <>
-              <CarouselNext />
-              <CarouselPrevious />
-            </>
-          )}
         </Carousel>
       </section>
-      <section>
-        <div className="grid grid-cols-4">
-          <Card>
-            <CardHeader>
-              <CardTitle></CardTitle>
-            </CardHeader>
-          </Card>
+      <section className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold">Browse by categories</h2>
+        </div>
+        <div className="grid grid-cols-6 gap-2">
+          {categories.isPending
+            ? Array.from({ length: 5 }, (_, i) => (
+                <CategoryCardSkeleton
+                  className={cn(
+                    i === 3
+                      ? "col-span-3"
+                      : i === 4
+                        ? "col-span-3"
+                        : "col-span-2",
+                  )}
+                  key={i}
+                />
+              ))
+            : categories.data?.categories.slice(0, 7).map((category, index) => {
+                return (
+                  <CategoryCard
+                    key={category.id}
+                    category={category}
+                    className={
+                      index === 3
+                        ? "col-span-4"
+                        : index === 4
+                          ? "col-span-2"
+                          : index === 5
+                            ? "col-span-3"
+                            : index === 6
+                              ? "col-span-3"
+                              : "col-span-2"
+                    }
+                  />
+                );
+              })}
         </div>
       </section>
     </article>

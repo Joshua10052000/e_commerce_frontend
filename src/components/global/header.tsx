@@ -1,18 +1,29 @@
 import { MountainIcon } from "lucide-react";
-import { Link } from "react-router";
+import { useSidebar } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { SearchForm } from "@/components/global/search-form";
+import { useNavigate } from "react-router";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const sidebar = useSidebar();
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background/95 px-4 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-8">
+    <header className="sticky inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <section>
-        <Link
-          to="/"
-          className="inline-flex rounded-md px-4 py-2 hover:bg-accent"
-        >
+        <Button onClick={sidebar.toggleSidebar} variant="ghost" size="icon">
           <MountainIcon />
-        </Link>
+        </Button>
       </section>
-      <section className="flex flex-1 items-center justify-center"></section>
+      <section className="max-w-sm flex-1">
+        <SearchForm
+          onSubmit={(data) =>
+            data.query.length <= 0
+              ? navigate("/products")
+              : navigate(`/products?search=${data.query}`)
+          }
+        />
+      </section>
       <section></section>
     </header>
   );

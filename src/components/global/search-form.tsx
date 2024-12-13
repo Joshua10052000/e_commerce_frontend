@@ -52,7 +52,6 @@ const SearchForm = React.forwardRef<HTMLFormElement, SearchFormProps>(
           />
           <Button
             size="icon"
-            variant="outline"
             className="rounded-none rounded-e-md"
             type="submit"
           >
