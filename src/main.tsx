@@ -40,7 +40,7 @@ createRoot(document.getElementById("root")!).render(
             </Route>
           </Route>
 
-          <Route path="auth" element={<AuthLayout />}>
+          <Route path="auth" action element={<AuthLayout />}>
             <Route index element={<AuthPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route path="signin" element={<SigninPage />} />
