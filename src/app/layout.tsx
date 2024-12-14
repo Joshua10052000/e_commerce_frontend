@@ -13,6 +13,8 @@ const RootLayout = () => {
   const navigate = useNavigate();
   const session = useSession();
 
+  console.log(session.data);
+
   useEffect(() => {
     if (session.data && !session.data?.user) {
       navigate("/auth/signin");
