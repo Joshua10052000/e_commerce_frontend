@@ -52,7 +52,7 @@ const columns = [
       const images = product.data ? product.data.product.images : [];
 
       return (
-        <div className="size-20 overflow-hidden rounded-md">
+        <div className="size-10 overflow-hidden rounded-md">
           <img
             className="h-full max-h-full w-full max-w-full object-cover"
             src={images[0]}
@@ -73,28 +73,10 @@ const columns = [
       return (
         <Link
           to={`/products/${row.original.productId}`}
-          className="hover:underline"
+          className="line-clamp-1 hover:underline"
         >
           {product.data?.product.name}
         </Link>
-      );
-    },
-  }),
-  columnHelper.display({
-    id: "product.description",
-    header: () => {
-      return <span>Description</span>;
-    },
-    cell: ({ row }) => {
-      const product = useProduct(row.original.productId);
-
-      return (
-        <span
-          className="line-clamp-1 max-w-xs"
-          dangerouslySetInnerHTML={{
-            __html: product.data?.product.description ?? "",
-          }}
-        />
       );
     },
   }),

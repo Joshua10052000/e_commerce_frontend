@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactQuery from "@tanstack/react-query";
-import * as ReactQueryDevtools from "@tanstack/react-query-devtools";
+// import * as ReactQueryDevtools from "@tanstack/react-query-devtools";
 
 interface QueryProviderProps {
   children?: React.ReactNode;
@@ -12,7 +12,7 @@ const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
   return (
     <ReactQuery.QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools.ReactQueryDevtools />
+      {/* <ReactQueryDevtools.ReactQueryDevtools /> */}
     </ReactQuery.QueryClientProvider>
   );
 };

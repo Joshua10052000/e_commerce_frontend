@@ -9,7 +9,7 @@ const Header = () => {
   const sidebar = useSidebar();
 
   return (
-    <header className="sticky inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
       <section>
         <Button onClick={sidebar.toggleSidebar} variant="ghost" size="icon">
           <MountainIcon />

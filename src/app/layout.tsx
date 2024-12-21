@@ -25,7 +25,7 @@ const RootLayout = () => {
       <Aside />
       <div className="relative w-full">
         <Header />
-        <main className="p-6">
+        <main className="p-4 md:p-6">
           <Outlet />
         </main>
         <Toaster />

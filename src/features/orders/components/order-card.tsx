@@ -20,11 +20,11 @@ const OrderCard = React.forwardRef<
 
   return (
     <Card className={cn(className)} ref={ref} {...props}>
-      <CardHeader>
+      <CardHeader className="p-4 md:p-6">
         <CardTitle className="text-xl">Reference ID</CardTitle>
         <CardDescription>{order.id}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative mx-auto max-w-[300px] overflow-auto p-4 xs:max-w-full md:p-6">
         <OrderTable orderItems={allOrderItems} totalCents={order.totalCents} />
       </CardContent>
     </Card>

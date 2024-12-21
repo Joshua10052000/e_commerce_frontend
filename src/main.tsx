@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryProvider } from "./context/query-provider";
 import { BrowserRouter, Route, Routes } from "react-router";
 import RootLayout from "@/app/layout";
 import Homepage from "@/app/page";
+import { QueryProvider } from "@/context/query-provider";
 
 import AuthLayout from "@/app/auth/layout";
 import AuthPage from "@/app/auth/page";
@@ -17,12 +17,12 @@ import ProductsPage from "@/app/products/page";
 
 import CartLayout from "@/app/cart/layout";
 import CartPage from "@/app/cart/page";
-import CheckoutLayout from "./app/checkout/layout";
-import CheckoutPage from "./app/checkout/page";
-import ProductDetailsPage from "./app/products/[...productId]/page";
-import OrdersLayout from "./app/orders/layout";
-import OrdersPage from "./app/orders/page";
-import CheckoutCallbackPage from "./app/checkout/callback/[...result]/page";
+import CheckoutLayout from "@/app/checkout/layout";
+import CheckoutPage from "@/app/checkout/page";
+import ProductDetailsPage from "@/app/products/[...productId]/page";
+import OrdersLayout from "@/app/orders/layout";
+import OrdersPage from "@/app/orders/page";
+import CheckoutCallbackPage from "@/app/checkout/callback/[...result]/page";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
