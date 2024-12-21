@@ -5,4 +5,10 @@ const reviewsQuerySchema = z.object({
   userId: z.string().optional(),
 });
 
-export { reviewsQuerySchema };
+const formSchema = z.object({
+  productId: z.string(),
+  description: z.string(),
+  stars: z.number(),
+});
+
+export { reviewsQuerySchema, formSchema };

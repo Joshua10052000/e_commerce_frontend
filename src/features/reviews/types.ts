@@ -1,6 +1,7 @@
-import { reviewsQuerySchema } from "@/features/reviews/lib/zod";
+import { formSchema, reviewsQuerySchema } from "@/features/reviews/lib/zod";
 
 type ReviewsQuerySchema = Zod.infer<typeof reviewsQuerySchema>;
+type FormSchema = Zod.infer<typeof formSchema>;
 
 interface Review {
   id: string;
@@ -16,4 +17,4 @@ interface ReviewsResponse {
   reviews: Review[];
 }
 
-export type { ReviewsQuerySchema, ReviewsResponse, Review };
+export type { ReviewsQuerySchema, FormSchema, ReviewsResponse, Review };

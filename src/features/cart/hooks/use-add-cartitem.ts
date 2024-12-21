@@ -42,11 +42,18 @@ function useAddToCart() {
       return { previousCart };
     },
     onError: (error, _, context) => {
-      toast({ title: error.name, description: error.message });
+      toast({
+        title: error.name,
+        description: error.message,
+        variant: "destructive",
+      });
       queryClient.setQueryData(["cart"], context?.previousCart);
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onSuccess: ({ message }) => {
+      toast({ title: "Added to cart!", description: message });
     },
   });
 

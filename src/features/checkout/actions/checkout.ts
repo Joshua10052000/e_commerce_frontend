@@ -8,9 +8,9 @@ async function createCheckout() {
       await checkoutAxios.post<CreateCheckoutServerResponse>("/create");
 
     const { data } = response;
-    const { link } = data;
+    const { order } = data;
 
-    return { link };
+    return { order };
   } catch (error) {
     if (error instanceof AxiosError) {
       const { response } = error;

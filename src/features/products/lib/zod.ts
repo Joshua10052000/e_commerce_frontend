@@ -4,6 +4,7 @@ const productsQuery = z
   .object({
     "category-name": z.string().optional(),
     "cart-id": z.string().optional(),
+    "user-wishlists": z.string().optional(),
     limit: z.string().optional(),
     search: z.string().optional(),
     cursor: z.string().optional(),

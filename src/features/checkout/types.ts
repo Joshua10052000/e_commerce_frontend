@@ -4,8 +4,12 @@ interface CheckoutLink {
   rel: string;
 }
 
+interface Order {
+  links: CheckoutLink[];
+}
+
 interface CreateCheckoutServerResponse {
-  link: CheckoutLink;
+  order: Order;
 }
 
 export type { CreateCheckoutServerResponse };

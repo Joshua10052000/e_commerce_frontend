@@ -107,14 +107,14 @@ const Homepage = () => {
                     category={category}
                     className={
                       index === 3
-                        ? "col-span-4"
+                        ? "col-span-6 sm:col-span-4"
                         : index === 4
-                          ? "col-span-2"
+                          ? "col-span-6 sm:col-span-2"
                           : index === 5
-                            ? "col-span-3"
+                            ? "col-span-6 sm:col-span-3"
                             : index === 6
-                              ? "col-span-3"
-                              : "col-span-2"
+                              ? "col-span-6 sm:col-span-3"
+                              : "col-span-6 sm:col-span-2"
                     }
                   />
                 );

@@ -1,8 +1,10 @@
 function formatCents(cents: number) {
   const numberFormatter = new Intl.NumberFormat("en-EN", {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
-  const dollar = cents / 100;
+
+  const dollar = Math.round(cents) / 100;
 
   return numberFormatter.format(dollar);
 }

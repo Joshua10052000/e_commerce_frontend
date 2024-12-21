@@ -6,7 +6,7 @@ import { ReviewsQuerySchema, ReviewsResponse } from "@/features/reviews/types";
 async function getReviews(query?: ReviewsQuerySchema) {
   try {
     const response = await reviewsAxios.get<ReviewsResponse>(
-      `/?productId=${query?.productId}&userId=${query?.userId}`,
+      `/product-id/${query?.productId}`,
     );
 
     const { data } = response;

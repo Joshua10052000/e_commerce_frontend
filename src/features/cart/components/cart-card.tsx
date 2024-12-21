@@ -1,5 +1,10 @@
 import * as React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 
 import { CartItem } from "@/features/cart/types";
 import { cn } from "@/lib/utils";
@@ -10,6 +15,7 @@ import { useUpdateCartitem } from "../hooks/use-update-cartitem";
 import { formatCents } from "@/features/products/lib/utils";
 import { useDeleteCartitem } from "../hooks/use-delete-cartitem";
 import { useProduct } from "@/features/products/hooks/use-product";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CartCardProps extends React.ComponentPropsWithoutRef<typeof Card> {
   cartItem: CartItem;
@@ -34,7 +40,7 @@ const CartCard = React.forwardRef<React.ElementRef<typeof Card>, CartCardProps>(
           </Button>
         </CardHeader>
         <CardContent className="flex gap-6 p-4">
-          <div className="size-40">
+          <div className="max-w-52">
             <img
               src={product.data?.product?.images[0]}
               alt={product.data?.product?.name}
@@ -46,9 +52,12 @@ const CartCard = React.forwardRef<React.ElementRef<typeof Card>, CartCardProps>(
               <h3 className="text-lg font-semibold">
                 {product.data?.product?.name}
               </h3>
-              <p className="line-clamp-3 text-sm text-muted-foreground">
-                {product.data?.product?.description}
-              </p>
+              <p
+                className="line-clamp-3 text-sm text-muted-foreground"
+                dangerouslySetInnerHTML={{
+                  __html: product.data?.product?.description || "",
+                }}
+              ></p>
               <div className="text-lg font-bold">
                 ${formatCents(product.data?.product?.priceCents || 0)}
               </div>
@@ -107,4 +116,34 @@ const CartCard = React.forwardRef<React.ElementRef<typeof Card>, CartCardProps>(
   },
 );
 
-export { CartCard };
+const CartCardSkeleton = React.forwardRef<
+  React.ElementRef<typeof Card>,
+  React.ComponentPropsWithoutRef<typeof Card>
+>(({ className, children, ...props }, ref) => {
+  return (
+    <Card className={cn(className)} ref={ref} {...props}>
+      <CardHeader className="relative p-0">
+        <Skeleton className="absolute right-4 top-4 h-6 w-6 rounded-full" />
+      </CardHeader>
+      <CardContent className="flex gap-6 p-4">
+        <div className="max-w-52">
+          <Skeleton className="size-52 rounded-md" />
+        </div>
+        <div className="flex flex-1 flex-col justify-between gap-2">
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-3/4 rounded-md" />
+            <Skeleton className="h-3 w-5/6 rounded-md" />
+            <Skeleton className="h-5 w-1/3 rounded-md" />
+          </div>
+          <CardFooter className="gap-2 p-4 pt-0">
+            <Skeleton className="h-6 w-6 rounded-full" />
+            <Skeleton className="h-8 w-12 rounded-md" />
+            <Skeleton className="h-6 w-6 rounded-full" />
+          </CardFooter>
+        </div>
+      </CardContent>
+    </Card>
+  );
+});
+
+export { CartCard, CartCardSkeleton };

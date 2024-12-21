@@ -36,9 +36,12 @@ const CategoryCard = React.forwardRef<
         <div className="d relative z-10 flex h-full flex-col justify-between">
           <CardHeader>
             <CardTitle className="text-lg font-bold capitalize tracking-tight text-muted-foreground">
-              {category.name.split("_").join(" ")}
+              {category.name
+                .split("_")
+                .map((word) => word.replace("and", "&"))
+                .join(" ")}
             </CardTitle>
-            <CardDescription className="leading-5 tracking-tighter text-primary-foreground">
+            <CardDescription className="line-clamp-3 overflow-ellipsis leading-5 tracking-tighter text-primary-foreground">
               {category.description}
             </CardDescription>
           </CardHeader>
